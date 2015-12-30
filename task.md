@@ -2,6 +2,7 @@
 
 The task consists of two parts: frontend and backend. The backend part is optional.
 The solution should be provided to us as a public GIT repository.
+All dependencies should be installed by running `npm install`. There should be README file to tell us how to run your solution - there should be one script doing it (e.g. `gulp start`)
 
 # Frontend
 
