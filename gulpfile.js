@@ -1,6 +1,6 @@
 var gulp = require('gulp');
-var connect = require('gulp-connect');
 var bower = require('gulp-bower');
+var connect = require('gulp-connect');
 
 var config = {
     sassPath: 'app/sass',
