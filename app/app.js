@@ -1,6 +1,7 @@
 var pragmatistsApp = angular.module('pragmatistsApp', ['ui.router']);
 
 pragmatistsApp.config(function($stateProvider, $urlRouterProvider) {
+  
     $urlRouterProvider.otherwise("/list");
 
     $stateProvider
@@ -16,8 +17,8 @@ pragmatistsApp.config(function($stateProvider, $urlRouterProvider) {
             url: "/list",
             parent: 'app',
             templateUrl: "views/list.html",
-            controller:"UsersController",
-            controllerAs:"vm",
+            controller: "UsersController",
+            controllerAs: "vm",
             resolve: {
                 users: function() {
                     return [
@@ -37,19 +38,44 @@ pragmatistsApp.config(function($stateProvider, $urlRouterProvider) {
                 "@list.user": {
                     templateUrl: "views/edit.html",
                     controller: 'EditController',
-                    controllerAs:"vm",
+                    controllerAs: "vm",
+                }
+            }
+        })        
+        .state('list.user.add', {
+            url: "/add",
+            views: {
+                "modal@": {
+                    templateUrl: "views/modal-layout.html"
+                },
+                "@list.user.add": {
+                    templateUrl: "views/add.html",
+                    controller: 'AddController',
+                    controllerAs: "vm",
                 }
             }
         });
         
 });
 
-pragmatistsApp.controller('UsersController', function($scope, users) {
+pragmatistsApp.controller('UsersController', function(users) {
     var vm = this;
     vm.users = users;
+    vm.removeItem = function(index) {
+      vm.users.splice(index, 1);
+    };
 });
 
-pragmatistsApp.controller('EditController', function($scope, $stateParams, users) {
+pragmatistsApp.controller('EditController', function($stateParams, users) {
   var vm = this;
   vm.user = users[$stateParams.index];
+});
+
+pragmatistsApp.controller('AddController', function(users, $window) {
+  var vm = this;
+  vm.add = function(object) {
+    users.push(object);
+    vm.user = {};
+    $window.history.back();
+  };
 });

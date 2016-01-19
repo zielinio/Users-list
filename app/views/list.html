@@ -9,9 +9,9 @@
     <td>{{user.email}}</td>
     <td>
       <button ui-sref="list.user({index: $index})">Edit</button>
-      <button>Remove</button>
+      <button ng-click="vm.removeItem($index)">Remove</button>
     </td>
   </tr>
 </table>
 
-<button>Create new</button>
+<button ui-sref="list.user.add">Create new</button>
