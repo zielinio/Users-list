@@ -1,17 +1,21 @@
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Actions</th>
-  </tr>
-  <tr ng-repeat="user in vm.users">
-    <td>{{user.name}}</td>
-    <td>{{user.email}}</td>
-    <td>
-      <button ui-sref="list.user({index: $index})">Edit</button>
-      <button ng-click="vm.removeItem($index)">Remove</button>
-    </td>
-  </tr>
+<table class="table material">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="user in vm.users">
+      <td>{{user.name}}</td>
+      <td>{{user.email}}</td>
+      <td>
+        <button ui-sref="list.user({index: $index})">Edit</button>
+        <button ng-click="vm.removeItem($index)">Remove</button>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
-<button ui-sref="list.user.add">Create new</button>
+<button ui-sref="list.user.add" class="btn">Create new</button>
