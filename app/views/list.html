@@ -1,2 +1,17 @@
-<h1>Test!!!</h1>
-{{vm.users}}
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Actions</th>
+  </tr>
+  <tr ng-repeat="user in vm.users">
+    <td>{{user.name}}</td>
+    <td>{{user.email}}</td>
+    <td>
+      <button ui-sref="list.user({index: $index})">Edit</button>
+      <button>Remove</button>
+    </td>
+  </tr>
+</table>
+
+<button>Create new</button>
