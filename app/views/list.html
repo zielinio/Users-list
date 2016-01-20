@@ -11,8 +11,13 @@
       <td>{{user.name}}</td>
       <td>{{user.email}}</td>
       <td>
-        <button ui-sref="list.user({index: $index})">Edit</button>
-        <button ng-click="vm.removeItem($index)">Remove</button>
+        <div class="tooltip fontawesome-cogs">
+           <div>
+              <a ui-sref="list.user({index: $index})">Edit</a>
+              <a ng-click="vm.removeItem($index)">Remove</a>
+           </div>
+        </div>
+        </div>
       </td>
     </tr>
   </tbody>

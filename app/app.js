@@ -25,7 +25,7 @@ pragmatistsApp.config(function($stateProvider, $urlRouterProvider) {
             controller: "UsersController",
             controllerAs: "vm",
             resolve: {
-                users: function(usersService, localStorageService){
+                users: function(usersService){
                     return usersService.getUsers();
                 }
             }
@@ -45,6 +45,7 @@ pragmatistsApp.config(function($stateProvider, $urlRouterProvider) {
         })        
         .state('list.user.add', {
             url: "/add",
+            parent: 'list',
             views: {
                 "modal@": {
                     templateUrl: "views/modal-layout.html"
@@ -67,8 +68,6 @@ pragmatistsApp.factory("usersService", function($q, localStorageService){
             initialData = [{ name: 'Neddard Stark', email: 'ned@stark.got'},
                         { name: 'Arya Stark', email: 'ned@stark.got'},
                         { name: 'Stannis Lannister', email: 'ned@stark.got'}];
-
-        console.log(localStorageService.get('usersData'));     
 
         var data = localStorageService.get('usersData') ? localStorageService.get('usersData') : initialData;
 
