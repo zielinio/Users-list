@@ -1,4 +1,9 @@
-var pragmatistsApp = angular.module('pragmatistsApp', ['ui.router']);
+var pragmatistsApp = angular.module('pragmatistsApp', ['ui.router', 'LocalStorageModule']);
+
+pragmatistsApp.config(function (localStorageServiceProvider) {
+  localStorageServiceProvider
+    .setPrefix('pragmatistsApp');
+});
 
 pragmatistsApp.config(function($stateProvider, $urlRouterProvider) {
   
@@ -20,12 +25,8 @@ pragmatistsApp.config(function($stateProvider, $urlRouterProvider) {
             controller: "UsersController",
             controllerAs: "vm",
             resolve: {
-                users: function() {
-                    return [
-                        { name: 'Neddard Stark', email: 'ned@stark.got'},
-                        { name: 'Arya Stark', email: 'ned@stark.got'},
-                        { name: 'Stannis Lannister', email: 'ned@stark.got'}
-                    ];
+                users: function(usersService, localStorageService){
+                    return usersService.getUsers();
                 }
             }
         })
@@ -58,23 +59,46 @@ pragmatistsApp.config(function($stateProvider, $urlRouterProvider) {
         
 });
 
-pragmatistsApp.controller('UsersController', function(users) {
+
+pragmatistsApp.factory("usersService", function($q, localStorageService){
+   return {
+       getUsers: function(){
+        var deferred = $q.defer(),
+            initialData = [{ name: 'Neddard Stark', email: 'ned@stark.got'},
+                        { name: 'Arya Stark', email: 'ned@stark.got'},
+                        { name: 'Stannis Lannister', email: 'ned@stark.got'}];
+
+        console.log(localStorageService.get('usersData'));     
+
+        var data = localStorageService.get('usersData') ? localStorageService.get('usersData') : initialData;
+
+        deferred.resolve(data);
+               
+        return deferred.promise;
+
+       }
+   };
+});
+
+pragmatistsApp.controller('UsersController', function(users, localStorageService) {
     var vm = this;
     vm.users = users;
     vm.removeItem = function(index) {
       vm.users.splice(index, 1);
+      localStorageService.set('usersData', vm.users);
     };
 });
 
-pragmatistsApp.controller('EditController', function($stateParams, users) {
+pragmatistsApp.controller('EditController', function($stateParams, users, localStorageService) {
   var vm = this;
   vm.user = users[$stateParams.index];
 });
 
-pragmatistsApp.controller('AddController', function(users, $window) {
+pragmatistsApp.controller('AddController', function(users, $window, localStorageService) {
   var vm = this;
   vm.add = function(object) {
     users.push(object);
+    localStorageService.set('usersData', users);
     vm.user = {};
     $window.history.back();
   };
