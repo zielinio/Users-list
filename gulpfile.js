@@ -33,6 +33,3 @@ gulp.task('watch', function () {
 
 gulp.task('start', ['bower', 'connect', 'watch']);
 
-gulp.task('default', function() {
-
-});
