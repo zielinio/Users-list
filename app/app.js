@@ -80,6 +80,8 @@ pragmatistsApp.factory("usersService", function($q, localStorageService){
    };
 });
 
+
+
 pragmatistsApp.controller('UsersController', function(users, localStorageService) {
     var vm = this;
     vm.users = users;
@@ -89,9 +91,15 @@ pragmatistsApp.controller('UsersController', function(users, localStorageService
     };
 });
 
-pragmatistsApp.controller('EditController', function($stateParams, users, localStorageService) {
+pragmatistsApp.controller('EditController', function($stateParams, users, $window, localStorageService) {
   var vm = this;
   vm.user = users[$stateParams.index];
+  vm.item = angular.copy(vm.user);
+  vm.save = function(object) {
+    users[$stateParams.index] = object;
+    localStorageService.set('usersData', users);
+    $window.history.back();
+  };
 });
 
 pragmatistsApp.controller('AddController', function(users, $window, localStorageService) {

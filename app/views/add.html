@@ -1,6 +1,11 @@
 <div>
-    <p>Add <b>{{vm.user.name}}</b></p>
-    <input ng-model="vm.user.name" type="text" />
-    <input ng-model="vm.user.email" type="text" />
-    <button ng-click="vm.add(vm.user)" class="btn">OK</button>
+    <h2>Add user</h2>
+    <form ng-submit="vm.add(vm.user)">
+      <label>Name:</label>
+      <input ng-model="vm.user.name" type="text" required>
+      <label>Email:</label>
+      <input ng-model="vm.user.email" type="email" required>
+      <input type="submit" class="btn" value="Add">
+      <button ui-sref="list" class="btn">Back</button>
+    </form>
 </div>

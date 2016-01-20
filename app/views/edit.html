@@ -1,6 +1,11 @@
 <div>
-    <p>Edit <b>{{vm.users.name}}</b></p>
-    <input ng-model="vm.user.name" type="text" />
-    <input ng-model="vm.user.email" type="text" />
-    <button ui-sref="^" class="btn">OK</button>
+    <h2>Edit User</h2>
+    <form ng-submit="vm.save(vm.item)">
+      <label>Name</label>
+      <input ng-model="vm.item.name" type="text" required>
+      <label>Email</label>
+      <input ng-model="vm.item.email" type="email" required>
+      <input type="submit" class="btn" value="Save">
+      <button ui-sref="^" class="btn">Back</button>
+    </form>
 </div>
